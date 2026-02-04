@@ -28,33 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonEasy = new Button();
-            buttonAgain = new Button();
+            buttonPerfect = new Button();
             labelWord = new Label();
             buttonSettings = new Button();
-            buttonHard = new Button();
-            buttonGood = new Button();
+            buttonIncorrect = new Button();
+            buttonHesitant = new Button();
             SuspendLayout();
             // 
-            // buttonEasy
+            // buttonPerfect
             // 
-            buttonEasy.Location = new Point(275, 205);
-            buttonEasy.Name = "buttonEasy";
-            buttonEasy.Size = new Size(94, 23);
-            buttonEasy.TabIndex = 0;
-            buttonEasy.Text = "Easy";
-            buttonEasy.UseVisualStyleBackColor = true;
-            buttonEasy.Click += buttonRating_Click;
-            // 
-            // buttonAgain
-            // 
-            buttonAgain.Location = new Point(12, 205);
-            buttonAgain.Name = "buttonAgain";
-            buttonAgain.Size = new Size(75, 23);
-            buttonAgain.TabIndex = 3;
-            buttonAgain.Text = "Again";
-            buttonAgain.UseVisualStyleBackColor = true;
-            buttonAgain.Click += buttonRating_Click;
+            buttonPerfect.Enabled = false;
+            buttonPerfect.Location = new Point(256, 205);
+            buttonPerfect.Name = "buttonPerfect";
+            buttonPerfect.Size = new Size(94, 23);
+            buttonPerfect.TabIndex = 0;
+            buttonPerfect.Tag = "Perfect";
+            buttonPerfect.Text = "Perfect";
+            buttonPerfect.UseVisualStyleBackColor = true;
+            buttonPerfect.Click += buttonRating_Click;
             // 
             // labelWord
             // 
@@ -76,37 +67,40 @@
             buttonSettings.Text = "Settings";
             buttonSettings.Click += buttonSettings_Click;
             // 
-            // buttonHard
+            // buttonIncorrect
             // 
-            buttonHard.Location = new Point(93, 205);
-            buttonHard.Name = "buttonHard";
-            buttonHard.Size = new Size(75, 23);
-            buttonHard.TabIndex = 5;
-            buttonHard.Text = "Hard";
-            buttonHard.UseVisualStyleBackColor = true;
-            buttonHard.Click += buttonRating_Click;
+            buttonIncorrect.Enabled = false;
+            buttonIncorrect.Location = new Point(75, 205);
+            buttonIncorrect.Name = "buttonIncorrect";
+            buttonIncorrect.Size = new Size(75, 23);
+            buttonIncorrect.TabIndex = 5;
+            buttonIncorrect.Tag = "Incorrect";
+            buttonIncorrect.Text = "Incorrect";
+            buttonIncorrect.UseVisualStyleBackColor = true;
+            buttonIncorrect.Click += buttonRating_Click;
             // 
-            // buttonGood
+            // buttonHesitant
             // 
-            buttonGood.Location = new Point(174, 205);
-            buttonGood.Name = "buttonGood";
-            buttonGood.Size = new Size(94, 23);
-            buttonGood.TabIndex = 6;
-            buttonGood.Text = "Good";
-            buttonGood.UseVisualStyleBackColor = true;
-            buttonGood.Click += buttonRating_Click;
+            buttonHesitant.Enabled = false;
+            buttonHesitant.Location = new Point(156, 205);
+            buttonHesitant.Name = "buttonHesitant";
+            buttonHesitant.Size = new Size(94, 23);
+            buttonHesitant.TabIndex = 6;
+            buttonHesitant.Tag = "Hesitant";
+            buttonHesitant.Text = "Hesitant";
+            buttonHesitant.UseVisualStyleBackColor = true;
+            buttonHesitant.Click += buttonRating_Click;
             // 
             // MainApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(466, 261);
-            Controls.Add(buttonGood);
-            Controls.Add(buttonHard);
+            Controls.Add(buttonHesitant);
+            Controls.Add(buttonIncorrect);
             Controls.Add(buttonSettings);
             Controls.Add(labelWord);
-            Controls.Add(buttonAgain);
-            Controls.Add(buttonEasy);
+            Controls.Add(buttonPerfect);
             Name = "MainApp";
             Text = "JLA";
             ResumeLayout(false);
@@ -114,11 +108,10 @@
 
         #endregion
 
-        private Button buttonEasy;
-        private Button buttonAgain;
+        private Button buttonPerfect;
         private Label labelWord;
         private Button buttonSettings;
-        private Button buttonHard;
-        private Button buttonGood;
+        private Button buttonIncorrect;
+        private Button buttonHesitant;
     }
 }

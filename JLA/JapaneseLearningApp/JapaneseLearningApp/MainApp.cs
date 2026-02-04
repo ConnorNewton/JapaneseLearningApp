@@ -14,22 +14,30 @@ using System.DirectoryServices;
 using System.Speech.Synthesis;
 using System.Globalization;
 using SpacedRepetition.Net;
+using SpacedRepetition.Net.ReviewStrategies;
+using static System.Collections.Specialized.BitVector32;
 
 namespace JapaneseLearningApp
 {
     public partial class MainApp : Form
     {
+        //API
         private HttpClient HttpClient = new HttpClient(); //http client for getting words from api
 
+        //Spaced Repetition
         private StudySession<Word> studySession = null; //Current Study session containing all words user is learning
-
+        private IEnumerator<Word> enumerator = null; //enumerator to move to the next word in the study session
+        private List<Word> allWords = new List<Word>(); //all words from the api
+        private Word currentWord = null;
+    
+        //Synthesizer
         private SpeechSynthesizer synth = new SpeechSynthesizer(); //voice synthesizer for pronunciation
         private bool useSynth = false; //bool for user to select whether or not to use synthesizer
 
-        private int proficiencyLevel = 5; //difficulty level of the words given (N5-N1)
-
-        private bool userFound = false; //bool to check if user already exists
-
+        //USER
+        private bool fileFound = false; //bool to check if user already exists
+        
+        //Settings
         public Settings settings { get; private set; } //Settings object for storing user settings
 
 
@@ -41,49 +49,104 @@ namespace JapaneseLearningApp
             settings = new Settings(false, VoiceGender.Male, 100);
             ApplySettings();
 
-            if (userFound)
-            {
-                //LOAD DATA
-            }
-            else
-            {
-                //start new user with 20 words to learn
-                GetWords();
-            }
+            //Load user data if it exists otherwise start new
+            LoadFile();
         }
 
         #region Helper Methods
 
-        private async void GetWords()
+        private async void GetWordsFromAPI()
         {
-            //Get all the words from the API
-            var response = await HttpClient.GetAsync($"https://jlpt-vocab-api.vercel.app/api/words/all");
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-            using JsonDocument doc = JsonDocument.Parse(jsonResponse);
-            JsonElement words = doc.RootElement.GetProperty("words");
 
-            //deserialize all words into the study session
-            studySession = new StudySession<Word>(JsonSerializer.Deserialize<List<Word>>(words));
+            try
+            {
+                //Get all the words from the API
+                var response = await HttpClient.GetAsync($"https://jlpt-vocab-api.vercel.app/api/words/all");
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                allWords = JsonSerializer.Deserialize<List<Word>>(jsonResponse);
 
-            //begin showing flashcards
-            StartStudySession();
+                //Begin studying
+                StartStudySession();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error getting words from API: {ex.Message}");
+            }
+            
+        }
+
+        private void ShowNextFlashcard()
+        {
+            //check if there are more cards to learn
+            if (enumerator.MoveNext())
+            {
+                //returned true so there is still cards to study
+                currentWord = enumerator.Current;
+            }
+            else
+            {
+                //returned false so there are no more cards review is complete
+                labelWord.Text = "Review Complete!\nNo more flashcards for today! Come back tomorrow!";
+                SaveFile();
+                return;
+            }
+
+            //show the romaji of the word
+            labelWord.Text = currentWord.romaji;
+
+            //disable so the user cannot rate until the answer is showm
+            buttonIncorrect.Enabled = false;
+            buttonHesitant.Enabled = false;
+            buttonPerfect.Enabled = false;
+            
+            //TTS if enabled in settings
+            if(settings.enableTTS)
+            {
+                synth.Speak(currentWord.word);
+            }
+
+        }
+
+        private async void LoadFile()
+        {
+            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
+
+            if (File.Exists(dataPath))
+            {
+                // Load saved progress
+                string json = File.ReadAllText(dataPath);
+                allWords = JsonSerializer.Deserialize<List<Word>>(json);
+
+                //Begin studying
+                StartStudySession();
+            }
+            else
+            {
+                // First time opening then fetch from API
+                GetWordsFromAPI();
+            }
+        }
+
+        private void SaveFile()
+        {
+            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
+            string json = JsonSerializer.Serialize(allWords, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(dataPath, json);
         }
 
         private void StartStudySession()
         {
-            foreach (Word word in studySession)
-            {
-                if (word.level == proficiencyLevel)
-                {
-                    labelWord.Text = word.romaji;
+            //deserialize all words into the study session
+            studySession = new StudySession<Word>(allWords);
+            studySession.MaxNewCards = 10; //max new cards added each session
+            studySession.MaxExistingCards = 50; //max cards we previously learned to show this session so total session is maxnew + max existing
+            studySession.ReviewStrategy = new SuperMemo2ReviewStrategy(); //MAYBE MAKE THESE SETTINGS?????????
 
-                    if (settings.enableTTS)
-                    {
-                        synth.Speak(word.word);
-                    }
-                }
-            }
+            //init enumerator for itterating over study session
+            enumerator = studySession.GetEnumerator();
 
+            //show the first flashcard
+            ShowNextFlashcard();
         }
 
         #endregion
@@ -92,12 +155,37 @@ namespace JapaneseLearningApp
 
         private void labelWord_Click(object sender, EventArgs e)
         {
-            
+            //write the romaji to the label
+            labelWord.Text += $"\n{currentWord.meaning}";
+
+            //disable all the buttons so user cannot rate until answer is shown
+            buttonIncorrect.Enabled = true;
+            buttonHesitant.Enabled = true;
+            buttonPerfect.Enabled = true;
         }
 
         private void buttonRating_Click(object sender, EventArgs e)
         {
-            //Easy, Hard, etc buttons
+            //get the tag on the button clicked
+            Button button = (Button)sender;
+            string rating = (string)button.Tag;
+
+            //set the review to whatever the user selected
+            switch (rating)
+            {
+                case "Incorrect":
+                    studySession.Review(currentWord, ReviewOutcome.Incorrect);
+                    break;
+                case "Hesitant":
+                    studySession.Review(currentWord, ReviewOutcome.Hesitant);
+                    break;
+                case "Perfect":
+                    studySession.Review(currentWord, ReviewOutcome.Perfect);
+                    break;
+            }
+
+            //continue reviewing
+            ShowNextFlashcard();
         }
 
         #endregion

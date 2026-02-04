@@ -11,8 +11,10 @@ namespace JapaneseLearningApp
     {
         //Word Properties
         public string romaji { get; set; }
+        public string furigana { get; set; }
         public string meaning { get; set; }
         public string word { get; set; }
+        public int level { get; set; }
 
 
         //Spaced Repetition Properties

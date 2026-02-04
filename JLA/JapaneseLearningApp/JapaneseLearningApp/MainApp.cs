@@ -13,6 +13,8 @@ using System.Text.Json;
 using System.DirectoryServices;
 using System.Speech.Synthesis;
 using System.Globalization;
+using SpacedRepetition;
+using SpacedRepetition.Net;
 
 namespace JapaneseLearningApp
 {
@@ -20,17 +22,18 @@ namespace JapaneseLearningApp
     {
         private HttpClient HttpClient = new HttpClient(); //http client for getting words from api
 
+        private StudySession<Word> studySession = new StudySession<Word>(); //Current Study session containing all words user is learning
+
         private SpeechSynthesizer synth = new SpeechSynthesizer(); //voice synthesizer for pronunciation
         private bool useSynth = false; //bool for user to select whether or not to use synthesizer
-
-        private List<Word> userWords = new List<Word>(); //list containing all words user is learning currently\
-        private int userWordIndex = 0; //global index for that word
 
         private bool userFound = false; //bool for checking if user exists
 
         private int difficultyLevel = 5; //difficulty level of the words given (N5-N1)
 
         public Settings settings { get; private set; }
+
+        
 
 
         public MainApp()

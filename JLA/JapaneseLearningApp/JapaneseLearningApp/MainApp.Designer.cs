@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonCorrect = new Button();
-            buttonIncorrect = new Button();
+            buttonEasy = new Button();
+            buttonAgain = new Button();
             labelWord = new Label();
             buttonSettings = new Button();
+            buttonHard = new Button();
+            buttonGood = new Button();
             SuspendLayout();
             // 
-            // buttonCorrect
+            // buttonEasy
             // 
-            buttonCorrect.Location = new Point(230, 205);
-            buttonCorrect.Name = "buttonCorrect";
-            buttonCorrect.Size = new Size(94, 23);
-            buttonCorrect.TabIndex = 0;
-            buttonCorrect.Text = "Remembered";
-            buttonCorrect.UseVisualStyleBackColor = true;
-            buttonCorrect.Click += buttonCorrect_Click;
+            buttonEasy.Location = new Point(275, 205);
+            buttonEasy.Name = "buttonEasy";
+            buttonEasy.Size = new Size(94, 23);
+            buttonEasy.TabIndex = 0;
+            buttonEasy.Text = "Easy";
+            buttonEasy.UseVisualStyleBackColor = true;
+            buttonEasy.Click += buttonRating_Click;
             // 
-            // buttonIncorrect
+            // buttonAgain
             // 
-            buttonIncorrect.Location = new Point(123, 205);
-            buttonIncorrect.Name = "buttonIncorrect";
-            buttonIncorrect.Size = new Size(75, 23);
-            buttonIncorrect.TabIndex = 3;
-            buttonIncorrect.Text = "Forgot";
-            buttonIncorrect.UseVisualStyleBackColor = true;
-            buttonIncorrect.Click += buttonIncorrect_Click;
+            buttonAgain.Location = new Point(12, 205);
+            buttonAgain.Name = "buttonAgain";
+            buttonAgain.Size = new Size(75, 23);
+            buttonAgain.TabIndex = 3;
+            buttonAgain.Text = "Again";
+            buttonAgain.UseVisualStyleBackColor = true;
+            buttonAgain.Click += buttonRating_Click;
             // 
             // labelWord
             // 
@@ -67,22 +69,44 @@
             // 
             // buttonSettings
             // 
-            buttonSettings.Location = new Point(375, 205);
+            buttonSettings.Location = new Point(379, 226);
             buttonSettings.Name = "buttonSettings";
             buttonSettings.Size = new Size(75, 23);
             buttonSettings.TabIndex = 0;
             buttonSettings.Text = "Settings";
             buttonSettings.Click += buttonSettings_Click;
             // 
+            // buttonHard
+            // 
+            buttonHard.Location = new Point(93, 205);
+            buttonHard.Name = "buttonHard";
+            buttonHard.Size = new Size(75, 23);
+            buttonHard.TabIndex = 5;
+            buttonHard.Text = "Hard";
+            buttonHard.UseVisualStyleBackColor = true;
+            buttonHard.Click += buttonRating_Click;
+            // 
+            // buttonGood
+            // 
+            buttonGood.Location = new Point(174, 205);
+            buttonGood.Name = "buttonGood";
+            buttonGood.Size = new Size(94, 23);
+            buttonGood.TabIndex = 6;
+            buttonGood.Text = "Good";
+            buttonGood.UseVisualStyleBackColor = true;
+            buttonGood.Click += buttonRating_Click;
+            // 
             // MainApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(466, 261);
+            Controls.Add(buttonGood);
+            Controls.Add(buttonHard);
             Controls.Add(buttonSettings);
             Controls.Add(labelWord);
-            Controls.Add(buttonIncorrect);
-            Controls.Add(buttonCorrect);
+            Controls.Add(buttonAgain);
+            Controls.Add(buttonEasy);
             Name = "MainApp";
             Text = "JLA";
             ResumeLayout(false);
@@ -90,9 +114,11 @@
 
         #endregion
 
-        private Button buttonCorrect;
-        private Button buttonIncorrect;
+        private Button buttonEasy;
+        private Button buttonAgain;
         private Label labelWord;
         private Button buttonSettings;
+        private Button buttonHard;
+        private Button buttonGood;
     }
 }

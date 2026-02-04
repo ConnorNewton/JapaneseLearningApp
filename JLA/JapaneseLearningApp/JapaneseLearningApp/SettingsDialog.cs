@@ -19,6 +19,8 @@ namespace JapaneseLearningApp
         private SpeechSynthesizer testSynth = new SpeechSynthesizer();
         private Settings settings;
 
+        public static bool doNotShow = false;
+
         public SettingsDialog(Settings settings)
         {
             InitializeComponent();
@@ -84,7 +86,7 @@ namespace JapaneseLearningApp
             settings.enableTTS = checkBoxEnableTTS.Checked;
 
             //stop showing if user selects do not show again
-            if (TTSWarning && checkBoxEnableTTS.Checked)
+            if (SettingsDialog.doNotShow && checkBoxEnableTTS.Checked)
             {
                 TTSWarning tTSWarning = new TTSWarning();
 

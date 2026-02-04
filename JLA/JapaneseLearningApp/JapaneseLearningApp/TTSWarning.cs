@@ -28,5 +28,15 @@ namespace JapaneseLearningApp
         {
             Close();
         }
+
+        private void checkBoxDoNotShow_Click(object sender, EventArgs e)
+        {
+            if (checkBoxDoNotShow.Checked)
+            {
+                SettingsDialog.doNotShow = true;
+            }
+            else
+                SettingsDialog.doNotShow = false;
+        }
     }
 }

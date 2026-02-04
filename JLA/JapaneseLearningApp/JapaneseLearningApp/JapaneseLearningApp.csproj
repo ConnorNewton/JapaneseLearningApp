@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SpacedRepetition.Net" Version="1.0.4" />
     <PackageReference Include="System.Speech" Version="10.0.2" />
   </ItemGroup>
 

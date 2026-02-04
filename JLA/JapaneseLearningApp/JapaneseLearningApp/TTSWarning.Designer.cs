@@ -41,7 +41,7 @@
             label1.Name = "label1";
             label1.Size = new Size(276, 106);
             label1.TabIndex = 0;
-            label1.Text = "The TTS will not pronounce text correctly unless the Japanese language pack is installed in Windows. Press okay to be taken to the settings page to install it.";
+            label1.Text = "The TTS will not pronounce text correctly unless the Japanese language pack is installed in Windows. Press OK to be taken to the settings page to install it.";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // buttonOK
@@ -73,6 +73,7 @@
             checkBoxDoNotShow.TabIndex = 3;
             checkBoxDoNotShow.Text = "Do not show again";
             checkBoxDoNotShow.UseVisualStyleBackColor = true;
+            checkBoxDoNotShow.Click += checkBoxDoNotShow_Click;
             // 
             // TTSWarning
             // 

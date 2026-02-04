@@ -24,15 +24,14 @@ namespace JapaneseLearningApp
         private bool useSynth = false; //bool for user to select whether or not to use synthesizer
 
         private List<Word> userWords = new List<Word>(); //list containing all words user is learning currently\
-        private int userWordIndex = 0;
+        private int userWordIndex = 0; //global index for that word
 
         private bool userFound = false; //bool for checking if user exists
 
         private int difficultyLevel = 5; //difficulty level of the words given (N5-N1)
 
-        Dictionary<int, DateTime> reviewDict = new Dictionary<int, DateTime>();
-
         public Settings settings { get; private set; }
+
 
         public MainApp()
         {
@@ -113,38 +112,12 @@ namespace JapaneseLearningApp
             labelWord.Enabled = false;
         }
 
-        private void buttonCorrect_Click(object sender, EventArgs e)
+        private void buttonRating_Click(object sender, EventArgs e)
         {
-            if (reviewDict.ContainsKey(userWordIndex))
-            {
-                //calculate the number of days until the user should see this word again
-                double daysUntilNextReview = Math.Pow(2, (reviewDict[userWordIndex] - DateTime.Now).TotalDays);
+            SM2
 
-                //add the days to the word in the dictionary
-                reviewDict[userWordIndex].AddDays(daysUntilNextReview);
-            }
-            else
-            {
-                //if this is the users first time getting it correct
-                DateTime nextReviewDate = DateTime.Now.AddDays(1);
 
-                //add it to the dictionary
-                reviewDict.Add(userWordIndex, nextReviewDate);
-            }
-
-            //move to the next word
             ++userWordIndex;
-
-            //show the next flashcard
-            ShowFlashCard();
-        }
-
-        private void buttonIncorrect_Click(object sender, EventArgs e)
-        {
-            //move to the next word
-            ++userWordIndex;
-
-            //show the next flashcard
             ShowFlashCard();
         }
 

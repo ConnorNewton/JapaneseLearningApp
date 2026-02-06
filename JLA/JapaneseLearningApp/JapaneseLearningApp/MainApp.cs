@@ -32,7 +32,7 @@ namespace JapaneseLearningApp
         private List<Word> allWords = new List<Word>(); //all words from the api
         private Word currentWord = null; //current word the user is reviewing in the study session
         private bool allowFlashCardClick = true; //disables the user from interacting with the flashcard
-    
+
         //Synthesizer
         private SpeechSynthesizer synth = new SpeechSynthesizer(); //voice synthesizer for pronunciation
 
@@ -60,14 +60,14 @@ namespace JapaneseLearningApp
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 allWords = JsonSerializer.Deserialize<List<Word>>(jsonResponse);
 
-                //Begin studying
+                //start studying
                 StartStudySession();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error getting words from API: {ex.Message}");
             }
-            
+
         }
 
         private void ShowNextFlashcard()
@@ -94,17 +94,17 @@ namespace JapaneseLearningApp
             labelWord.Text = "";
 
             //show the romaji of the word
-            if(settings.showFurigana)
+            if (settings.showFurigana)
             {
                 labelWord.Text = currentWord.furigana;
             }
 
-            if(settings.showJapaneseWord)
+            if (settings.showJapaneseWord)
             {
                 labelWord.Text += $"\n{currentWord.word}";
             }
 
-            if(settings.showRomaji)
+            if (settings.showRomaji)
             {
                 labelWord.Text += $"\n{currentWord.romaji}";
             }
@@ -113,9 +113,9 @@ namespace JapaneseLearningApp
             buttonIncorrect.Enabled = false;
             buttonHesitant.Enabled = false;
             buttonPerfect.Enabled = false;
-            
+
             //TTS if enabled in settings
-            if(settings.enableTTS)
+            if (settings.enableTTS)
             {
                 synth.Speak(currentWord.word);
             }
@@ -127,12 +127,12 @@ namespace JapaneseLearningApp
             studySession = new StudySession<Word>(allWords);
 
             //select new cards and review cards based on user preference
-            if(settings.studyIntensity == Settings.StudyIntensity.Light)
+            if (settings.studyIntensity == Settings.StudyIntensity.Light)
             {
                 studySession.MaxNewCards = 10; //max new cards added each session
                 studySession.MaxExistingCards = 20; //max cards we previously learned to show this session so total session is maxnew + max existing
             }
-            else if(settings.studyIntensity == Settings.StudyIntensity.Standard)
+            else if (settings.studyIntensity == Settings.StudyIntensity.Standard)
             {
                 studySession.MaxNewCards = 15;
                 studySession.MaxExistingCards = 30;
@@ -142,7 +142,7 @@ namespace JapaneseLearningApp
                 studySession.MaxNewCards = 20;
                 studySession.MaxExistingCards = 40;
             }
-            
+
             //Use supermemo2 review algorithm
             studySession.ReviewStrategy = new SuperMemo2ReviewStrategy();
 
@@ -159,20 +159,6 @@ namespace JapaneseLearningApp
 
         private async void LoadFile()
         {
-            //load user data
-            string dataPathUser = Path.Combine(Application.UserAppDataPath, "user.json");
-            if (File.Exists(dataPathUser))
-            {
-                // Load saved progress
-                string json = File.ReadAllText(dataPathUser);
-                allWords = JsonSerializer.Deserialize<List<Word>>(json);
-            }
-            else
-            {
-                // First time opening then fetch from API
-                GetWordsFromAPI();
-            }
-
             //load user settings
             string dataPathSettings = Path.Combine(Application.UserAppDataPath, "settings.json");
             //load user settings
@@ -186,11 +172,29 @@ namespace JapaneseLearningApp
             {
                 //use default
                 settings = new Settings(false, VoiceGender.Male, 100, true, false, false, Settings.StudyIntensity.Standard);
-                InitTTS();
             }
 
-            //Begin studying
-            StartStudySession();
+            //initialize the tts if it is enabled from settings
+            InitTTS();
+
+            //load user data
+            string dataPathUser = Path.Combine(Application.UserAppDataPath, "user.json");
+            if (File.Exists(dataPathUser))
+            {
+                // Load saved progress
+                string json = File.ReadAllText(dataPathUser);
+                allWords = JsonSerializer.Deserialize<List<Word>>(json);
+
+                //Begin studying
+                StartStudySession();
+            }
+            else
+            {
+                // First time opening then wait to fetch from API then start
+                GetWordsFromAPI();
+            }
+
+            
         }
 
         private void SaveFile()
@@ -207,13 +211,19 @@ namespace JapaneseLearningApp
 
         }
 
+        private void MainApp_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //ensure progress is saved if user force closes the app
+            SaveFile();
+        }
+
         #endregion
 
         #region Events
 
         private void labelWord_Click(object sender, EventArgs e)
         {
-            if(allowFlashCardClick)
+            if (allowFlashCardClick)
             {
                 //write the meaning of the word
                 labelWord.Text += $"\n{currentWord.meaning}";
@@ -292,5 +302,7 @@ namespace JapaneseLearningApp
         }
 
         #endregion
+
+        
     }
 }

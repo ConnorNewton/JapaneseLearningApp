@@ -103,6 +103,7 @@
             Controls.Add(buttonPerfect);
             Name = "MainApp";
             Text = "JLA";
+            FormClosing += MainApp_FormClosing;
             ResumeLayout(false);
         }
 

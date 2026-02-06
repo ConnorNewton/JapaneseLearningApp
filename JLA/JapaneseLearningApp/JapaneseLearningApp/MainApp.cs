@@ -150,7 +150,7 @@ namespace JapaneseLearningApp
 
         private async void LoadFile()
         {
-            string dataPath = Path.Combine(Path.GetDirectoryName(Application.UserAppDataPath), "user.json");
+            string dataPath = Path.Combine(Application.UserAppDataPath, "words.json");
 
             if (File.Exists(dataPath))
             {
@@ -170,12 +170,10 @@ namespace JapaneseLearningApp
 
         private void SaveFile()
         {
-            string dataPath = Path.Combine(Path.GetDirectoryName(Application.UserAppDataPath), "user.json");
+            string dataPath = Path.Combine(Application.UserAppDataPath, "words.json");
             string json = JsonSerializer.Serialize(allWords, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(dataPath, json);
         }
-
-        
 
         #endregion
 

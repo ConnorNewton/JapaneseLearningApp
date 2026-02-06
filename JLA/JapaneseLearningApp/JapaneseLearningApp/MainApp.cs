@@ -49,7 +49,7 @@ namespace JapaneseLearningApp
             InitializeComponent();
 
             //initial settings
-            settings = new Settings(false, VoiceGender.Male, 100, true, false, false);
+            settings = new Settings(false, VoiceGender.Male, 100, true, false, false, Settings.StudyIntensity.Standard);
             ApplySettings();
 
             //Load user data if it exists otherwise start new
@@ -133,9 +133,26 @@ namespace JapaneseLearningApp
         {
             //deserialize all words into the study session
             studySession = new StudySession<Word>(allWords);
-            studySession.MaxNewCards = 10; //max new cards added each session
-            studySession.MaxExistingCards = 50; //max cards we previously learned to show this session so total session is maxnew + max existing
-            studySession.ReviewStrategy = new SuperMemo2ReviewStrategy(); //MAYBE MAKE THESE SETTINGS?????????
+
+            //select new cards and review cards based on user preference
+            if(settings.studyIntensity == Settings.StudyIntensity.Light)
+            {
+                studySession.MaxNewCards = 10; //max new cards added each session
+                studySession.MaxExistingCards = 20; //max cards we previously learned to show this session so total session is maxnew + max existing
+            }
+            else if(settings.studyIntensity == Settings.StudyIntensity.Standard)
+            {
+                studySession.MaxNewCards = 15;
+                studySession.MaxExistingCards = 30;
+            }
+            else
+            {
+                studySession.MaxNewCards = 20;
+                studySession.MaxExistingCards = 40;
+            }
+            
+            //Use supermemo2 review algorithm
+            studySession.ReviewStrategy = new SuperMemo2ReviewStrategy();
 
             //init enumerator for itterating over study session
             enumerator = studySession.GetEnumerator();
@@ -150,7 +167,7 @@ namespace JapaneseLearningApp
 
         private async void LoadFile()
         {
-            string dataPath = Path.Combine(Application.UserAppDataPath, "words.json");
+            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
 
             if (File.Exists(dataPath))
             {
@@ -170,7 +187,7 @@ namespace JapaneseLearningApp
 
         private void SaveFile()
         {
-            string dataPath = Path.Combine(Application.UserAppDataPath, "words.json");
+            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
             string json = JsonSerializer.Serialize(allWords, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(dataPath, json);
         }

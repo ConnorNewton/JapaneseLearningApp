@@ -35,6 +35,13 @@ namespace JapaneseLearningApp
             checkBoxShowFuri.Checked = settings.showFurigana;
             checkBoxShowRomaji.Checked = settings.showRomaji;
             checkBoxShowJap.Checked = settings.showJapaneseWord;
+
+            if (settings.studyIntensity == Settings.StudyIntensity.Light)
+                comboBoxIntensity.SelectedIndex = 0;
+            else if (settings.studyIntensity == Settings.StudyIntensity.Standard)
+                comboBoxIntensity.SelectedIndex = 1;
+            else
+                comboBoxIntensity.SelectedIndex = 2;
         }
 
         #region Open/Close Buttons
@@ -44,6 +51,13 @@ namespace JapaneseLearningApp
             settings.showFurigana = checkBoxShowFuri.Checked;
             settings.showJapaneseWord = checkBoxShowJap.Checked;
             settings.showRomaji = checkBoxShowRomaji.Checked;
+
+            if (comboBoxIntensity.SelectedIndex == 0)
+                settings.studyIntensity = Settings.StudyIntensity.Light;
+            else if (comboBoxIntensity.SelectedIndex == 1)
+                settings.studyIntensity = Settings.StudyIntensity.Standard;
+            else
+                settings.studyIntensity = Settings.StudyIntensity.Intesive;
 
             //check at least one of the word settings is enabled
             if(!checkBoxShowJap.Checked && !checkBoxShowRomaji.Checked)

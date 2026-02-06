@@ -39,6 +39,8 @@
             checkBoxShowFuri = new CheckBox();
             checkBoxShowJap = new CheckBox();
             checkBoxShowRomaji = new CheckBox();
+            comboBoxIntensity = new ComboBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarVol).BeginInit();
             SuspendLayout();
             // 
@@ -65,6 +67,7 @@
             // 
             // comboBoxVoiceGender
             // 
+            comboBoxVoiceGender.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxVoiceGender.FormattingEnabled = true;
             comboBoxVoiceGender.Items.AddRange(new object[] { "Male", "Female" });
             comboBoxVoiceGender.Location = new Point(12, 37);
@@ -152,12 +155,32 @@
             checkBoxShowRomaji.Text = "Show Romaji";
             checkBoxShowRomaji.UseVisualStyleBackColor = true;
             // 
+            // comboBoxIntensity
+            // 
+            comboBoxIntensity.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxIntensity.Items.AddRange(new object[] { "Light", "Standard", "Intensive" });
+            comboBoxIntensity.Location = new Point(193, 109);
+            comboBoxIntensity.Name = "comboBoxIntensity";
+            comboBoxIntensity.Size = new Size(121, 23);
+            comboBoxIntensity.TabIndex = 12;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(193, 92);
+            label2.Name = "label2";
+            label2.Size = new Size(85, 15);
+            label2.TabIndex = 13;
+            label2.Text = "Study Intensity";
+            // 
             // SettingsDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(336, 237);
             ControlBox = false;
+            Controls.Add(label2);
+            Controls.Add(comboBoxIntensity);
             Controls.Add(checkBoxShowRomaji);
             Controls.Add(checkBoxShowJap);
             Controls.Add(checkBoxShowFuri);
@@ -190,5 +213,7 @@
         private CheckBox checkBoxShowFuri;
         private CheckBox checkBoxShowJap;
         private CheckBox checkBoxShowRomaji;
+        private ComboBox comboBoxIntensity;
+        private Label label2;
     }
 }

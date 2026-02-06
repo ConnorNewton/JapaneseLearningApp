@@ -9,14 +9,22 @@ namespace JapaneseLearningApp
 {
     public class Settings
     {
+        public enum StudyIntensity
+        {
+            Light,
+            Standard,
+            Intesive
+        }
+
         public bool enableTTS { get; set; }
         public VoiceGender genderTTS { get; set; }
         public int volumeTTS { get; set; }
         public bool showJapaneseWord { get; set; }
         public bool showFurigana { get; set; }
         public bool showRomaji { get; set; }
+        public StudyIntensity studyIntensity { get; set; }
 
-        public Settings(bool enableTTS, VoiceGender genderTTs, int volumeTTS, bool showRomaji, bool showJapaneseWord, bool showFurigana) 
+        public Settings(bool enableTTS, VoiceGender genderTTs, int volumeTTS, bool showRomaji, bool showJapaneseWord, bool showFurigana, StudyIntensity studyIntensity) 
         {
             this.enableTTS = enableTTS;
             this.volumeTTS = volumeTTS;
@@ -24,6 +32,7 @@ namespace JapaneseLearningApp
             this.showFurigana = showFurigana;
             this.showJapaneseWord = showJapaneseWord;
             this.showRomaji = showRomaji;
+            this.studyIntensity = studyIntensity;
         }
     }
 }

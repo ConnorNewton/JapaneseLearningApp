@@ -38,7 +38,7 @@
             // buttonPerfect
             // 
             buttonPerfect.Enabled = false;
-            buttonPerfect.Location = new Point(256, 205);
+            buttonPerfect.Location = new Point(260, 205);
             buttonPerfect.Name = "buttonPerfect";
             buttonPerfect.Size = new Size(94, 23);
             buttonPerfect.TabIndex = 0;
@@ -51,7 +51,7 @@
             // 
             labelWord.BorderStyle = BorderStyle.FixedSingle;
             labelWord.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelWord.Location = new Point(12, 9);
+            labelWord.Location = new Point(16, 9);
             labelWord.Name = "labelWord";
             labelWord.Size = new Size(438, 184);
             labelWord.TabIndex = 4;
@@ -60,7 +60,7 @@
             // 
             // buttonSettings
             // 
-            buttonSettings.Location = new Point(379, 226);
+            buttonSettings.Location = new Point(383, 226);
             buttonSettings.Name = "buttonSettings";
             buttonSettings.Size = new Size(75, 23);
             buttonSettings.TabIndex = 0;
@@ -70,7 +70,7 @@
             // buttonIncorrect
             // 
             buttonIncorrect.Enabled = false;
-            buttonIncorrect.Location = new Point(75, 205);
+            buttonIncorrect.Location = new Point(79, 205);
             buttonIncorrect.Name = "buttonIncorrect";
             buttonIncorrect.Size = new Size(75, 23);
             buttonIncorrect.TabIndex = 5;
@@ -82,7 +82,7 @@
             // buttonHesitant
             // 
             buttonHesitant.Enabled = false;
-            buttonHesitant.Location = new Point(156, 205);
+            buttonHesitant.Location = new Point(160, 205);
             buttonHesitant.Name = "buttonHesitant";
             buttonHesitant.Size = new Size(94, 23);
             buttonHesitant.TabIndex = 6;
@@ -95,7 +95,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(466, 261);
+            ClientSize = new Size(466, 259);
             Controls.Add(buttonHesitant);
             Controls.Add(buttonIncorrect);
             Controls.Add(buttonSettings);

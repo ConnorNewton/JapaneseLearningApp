@@ -35,11 +35,7 @@ namespace JapaneseLearningApp
     
         //Synthesizer
         private SpeechSynthesizer synth = new SpeechSynthesizer(); //voice synthesizer for pronunciation
-        private bool useSynth = false; //bool for user to select whether or not to use synthesizer
 
-        //USER
-        private bool fileFound = false; //bool to check if user already exists
-        
         //Settings
         public Settings settings { get; private set; } //Settings object for storing user settings
 
@@ -47,10 +43,6 @@ namespace JapaneseLearningApp
         public MainApp()
         {
             InitializeComponent();
-
-            //initial settings
-            settings = new Settings(false, VoiceGender.Male, 100, true, false, false, Settings.StudyIntensity.Standard);
-            ApplySettings();
 
             //Load user data if it exists otherwise start new
             LoadFile();
@@ -167,29 +159,52 @@ namespace JapaneseLearningApp
 
         private async void LoadFile()
         {
-            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
-
-            if (File.Exists(dataPath))
+            //load user data
+            string dataPathUser = Path.Combine(Application.UserAppDataPath, "user.json");
+            if (File.Exists(dataPathUser))
             {
                 // Load saved progress
-                string json = File.ReadAllText(dataPath);
+                string json = File.ReadAllText(dataPathUser);
                 allWords = JsonSerializer.Deserialize<List<Word>>(json);
-
-                //Begin studying
-                StartStudySession();
             }
             else
             {
                 // First time opening then fetch from API
                 GetWordsFromAPI();
             }
+
+            //load user settings
+            string dataPathSettings = Path.Combine(Application.UserAppDataPath, "settings.json");
+            //load user settings
+            if (File.Exists(dataPathSettings))
+            {
+                // Load saved progress
+                string json = File.ReadAllText(dataPathSettings);
+                settings = JsonSerializer.Deserialize<Settings>(json);
+            }
+            else
+            {
+                //use default
+                settings = new Settings(false, VoiceGender.Male, 100, true, false, false, Settings.StudyIntensity.Standard);
+                InitTTS();
+            }
+
+            //Begin studying
+            StartStudySession();
         }
 
         private void SaveFile()
         {
-            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
-            string json = JsonSerializer.Serialize(allWords, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(dataPath, json);
+            //saves user progress
+            string dataPathUser = Path.Combine(Application.UserAppDataPath, "user.json");
+            string jsonUser = JsonSerializer.Serialize(allWords, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(dataPathUser, jsonUser);
+
+            //saves user settings
+            string dataPathSettings = Path.Combine(Application.UserAppDataPath, "settings.json");
+            string jsonSettings = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(dataPathSettings, jsonSettings);
+
         }
 
         #endregion
@@ -262,11 +277,11 @@ namespace JapaneseLearningApp
 
             if (settingsDialog.ShowDialog() == DialogResult.OK)
             {
-                ApplySettings();
+                InitTTS();
             }
         }
 
-        private void ApplySettings()
+        private void InitTTS()
         {
             if (settings.enableTTS)
             {

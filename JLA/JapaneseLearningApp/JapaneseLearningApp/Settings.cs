@@ -13,7 +13,7 @@ namespace JapaneseLearningApp
         {
             Light,
             Standard,
-            Intesive
+            Intensive
         }
 
         public bool enableTTS { get; set; }

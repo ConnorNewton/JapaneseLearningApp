@@ -57,7 +57,7 @@ namespace JapaneseLearningApp
             else if (comboBoxIntensity.SelectedIndex == 1)
                 settings.studyIntensity = Settings.StudyIntensity.Standard;
             else
-                settings.studyIntensity = Settings.StudyIntensity.Intesive;
+                settings.studyIntensity = Settings.StudyIntensity.Intensive;
 
             //check at least one of the word settings is enabled
             if(!checkBoxShowJap.Checked && !checkBoxShowRomaji.Checked)

@@ -36,6 +36,9 @@
             labelVol = new Label();
             buttonTest = new Button();
             buttonCancel = new Button();
+            checkBoxShowFuri = new CheckBox();
+            checkBoxShowJap = new CheckBox();
+            checkBoxShowRomaji = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)trackBarVol).BeginInit();
             SuspendLayout();
             // 
@@ -119,12 +122,45 @@
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += buttonCancel_Click;
             // 
+            // checkBoxShowFuri
+            // 
+            checkBoxShowFuri.AutoSize = true;
+            checkBoxShowFuri.Location = new Point(12, 88);
+            checkBoxShowFuri.Name = "checkBoxShowFuri";
+            checkBoxShowFuri.Size = new Size(104, 19);
+            checkBoxShowFuri.TabIndex = 9;
+            checkBoxShowFuri.Text = "Show Furigana";
+            checkBoxShowFuri.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowJap
+            // 
+            checkBoxShowJap.AutoSize = true;
+            checkBoxShowJap.Location = new Point(12, 113);
+            checkBoxShowJap.Name = "checkBoxShowJap";
+            checkBoxShowJap.Size = new Size(137, 19);
+            checkBoxShowJap.TabIndex = 10;
+            checkBoxShowJap.Text = "Show Japanese Word";
+            checkBoxShowJap.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowRomaji
+            // 
+            checkBoxShowRomaji.AutoSize = true;
+            checkBoxShowRomaji.Location = new Point(12, 138);
+            checkBoxShowRomaji.Name = "checkBoxShowRomaji";
+            checkBoxShowRomaji.Size = new Size(95, 19);
+            checkBoxShowRomaji.TabIndex = 11;
+            checkBoxShowRomaji.Text = "Show Romaji";
+            checkBoxShowRomaji.UseVisualStyleBackColor = true;
+            // 
             // SettingsDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(336, 237);
             ControlBox = false;
+            Controls.Add(checkBoxShowRomaji);
+            Controls.Add(checkBoxShowJap);
+            Controls.Add(checkBoxShowFuri);
             Controls.Add(buttonCancel);
             Controls.Add(buttonTest);
             Controls.Add(labelVol);
@@ -151,5 +187,8 @@
         private Label labelVol;
         private Button buttonTest;
         private Button buttonCancel;
+        private CheckBox checkBoxShowFuri;
+        private CheckBox checkBoxShowJap;
+        private CheckBox checkBoxShowRomaji;
     }
 }

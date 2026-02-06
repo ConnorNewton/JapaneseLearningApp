@@ -16,6 +16,8 @@ using System.Globalization;
 using SpacedRepetition.Net;
 using SpacedRepetition.Net.ReviewStrategies;
 using static System.Collections.Specialized.BitVector32;
+using System.Runtime.CompilerServices;
+using System.Drawing.Design;
 
 namespace JapaneseLearningApp
 {
@@ -28,7 +30,8 @@ namespace JapaneseLearningApp
         private StudySession<Word> studySession = null; //Current Study session containing all words user is learning
         private IEnumerator<Word> enumerator = null; //enumerator to move to the next word in the study session
         private List<Word> allWords = new List<Word>(); //all words from the api
-        private Word currentWord = null;
+        private Word currentWord = null; //current word the user is reviewing in the study session
+        private bool allowFlashCardClick = true; //disables the user from interacting with the flashcard
     
         //Synthesizer
         private SpeechSynthesizer synth = new SpeechSynthesizer(); //voice synthesizer for pronunciation
@@ -46,7 +49,7 @@ namespace JapaneseLearningApp
             InitializeComponent();
 
             //initial settings
-            settings = new Settings(false, VoiceGender.Male, 100);
+            settings = new Settings(false, VoiceGender.Male, 100, true, false, false);
             ApplySettings();
 
             //Load user data if it exists otherwise start new
@@ -87,12 +90,32 @@ namespace JapaneseLearningApp
             {
                 //returned false so there are no more cards review is complete
                 labelWord.Text = "Review Complete!\nNo more flashcards for today! Come back tomorrow!";
+                allowFlashCardClick = false;
+                buttonIncorrect.Enabled = false;
+                buttonHesitant.Enabled = false;
+                buttonPerfect.Enabled = false;
                 SaveFile();
                 return;
             }
 
+            //clear the label
+            labelWord.Text = "";
+
             //show the romaji of the word
-            labelWord.Text = currentWord.romaji;
+            if(settings.showFurigana)
+            {
+                labelWord.Text = currentWord.furigana;
+            }
+
+            if(settings.showJapaneseWord)
+            {
+                labelWord.Text += $"\n{currentWord.word}";
+            }
+
+            if(settings.showRomaji)
+            {
+                labelWord.Text += $"\n{currentWord.romaji}";
+            }
 
             //disable so the user cannot rate until the answer is showm
             buttonIncorrect.Enabled = false;
@@ -160,13 +183,19 @@ namespace JapaneseLearningApp
 
         private void labelWord_Click(object sender, EventArgs e)
         {
-            //write the romaji to the label
-            labelWord.Text += $"\n{currentWord.meaning}";
+            if(allowFlashCardClick)
+            {
+                //write the meaning of the word
+                labelWord.Text += $"\n{currentWord.meaning}";
 
-            //disable all the buttons so user cannot rate until answer is shown
-            buttonIncorrect.Enabled = true;
-            buttonHesitant.Enabled = true;
-            buttonPerfect.Enabled = true;
+                //disable all the buttons so user cannot rate until answer is shown
+                buttonIncorrect.Enabled = true;
+                buttonHesitant.Enabled = true;
+                buttonPerfect.Enabled = true;
+
+                //stop user from interacting until rate button is pressed
+                allowFlashCardClick = false;
+            }
         }
 
         private void buttonRating_Click(object sender, EventArgs e)
@@ -196,6 +225,7 @@ namespace JapaneseLearningApp
             currentWord.PreviousCorrectReview = updatedWord.PreviousCorrectReview;
 
             //continue reviewing
+            allowFlashCardClick = true;
             ShowNextFlashcard();
         }
 

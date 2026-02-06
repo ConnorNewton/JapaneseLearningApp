@@ -32,13 +32,25 @@ namespace JapaneseLearningApp
             comboBoxVoiceGender.SelectedIndex = settings.genderTTS == VoiceGender.Male ? 0 : 1;
             trackBarVol.Value = settings.volumeTTS;
             labelVol.Text = trackBarVol.Value.ToString();
+            checkBoxShowFuri.Checked = settings.showFurigana;
+            checkBoxShowRomaji.Checked = settings.showRomaji;
+            checkBoxShowJap.Checked = settings.showJapaneseWord;
         }
 
         #region Open/Close Buttons
         private void buttonDone_Click(object sender, EventArgs e)
         {
             //OTHER SETTINGS CAN GO HERE TTS IN EVENTS FOR THE SAKE OF TEST BUTTON
+            settings.showFurigana = checkBoxShowFuri.Checked;
+            settings.showJapaneseWord = checkBoxShowJap.Checked;
+            settings.showRomaji = checkBoxShowRomaji.Checked;
 
+            //check at least one of the word settings is enabled
+            if(!checkBoxShowJap.Checked && !checkBoxShowRomaji.Checked)
+            {
+                MessageBox.Show("At least one of either romaji, or japanese word must be enabled");
+                return;
+            }
 
             //Close Dialog
             DialogResult = DialogResult.OK;

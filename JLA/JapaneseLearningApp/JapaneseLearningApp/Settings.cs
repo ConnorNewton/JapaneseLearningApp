@@ -12,12 +12,18 @@ namespace JapaneseLearningApp
         public bool enableTTS { get; set; }
         public VoiceGender genderTTS { get; set; }
         public int volumeTTS { get; set; }
+        public bool showJapaneseWord { get; set; }
+        public bool showFurigana { get; set; }
+        public bool showRomaji { get; set; }
 
-        public Settings(bool enableTTS, VoiceGender genderTTs, int volumeTTS) 
+        public Settings(bool enableTTS, VoiceGender genderTTs, int volumeTTS, bool showRomaji, bool showJapaneseWord, bool showFurigana) 
         {
             this.enableTTS = enableTTS;
             this.volumeTTS = volumeTTS;
             this.genderTTS = genderTTs;
+            this.showFurigana = showFurigana;
+            this.showJapaneseWord = showJapaneseWord;
+            this.showRomaji = showRomaji;
         }
     }
 }

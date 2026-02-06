@@ -50,7 +50,7 @@
             // labelWord
             // 
             labelWord.BorderStyle = BorderStyle.FixedSingle;
-            labelWord.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelWord.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelWord.Location = new Point(12, 9);
             labelWord.Name = "labelWord";
             labelWord.Size = new Size(438, 184);

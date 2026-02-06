@@ -18,8 +18,8 @@ namespace JapaneseLearningApp
 
 
         //Spaced Repetition Properties
-        
-        public DifficultyRating DifficultyRating { get; set; }
+
+        public DifficultyRating DifficultyRating { get; set; } = DifficultyRating.Easiest; //null otherwise so maybe this is okay?????
         public DateTime ReviewDate { get; set; }
         public DateTime PreviousCorrectReview { get; set; }
         public int CorrectReviewStreak { get; set; }

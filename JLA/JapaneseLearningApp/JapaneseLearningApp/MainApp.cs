@@ -106,6 +106,24 @@ namespace JapaneseLearningApp
             }
 
         }
+        private void StartStudySession()
+        {
+            //deserialize all words into the study session
+            studySession = new StudySession<Word>(allWords);
+            studySession.MaxNewCards = 10; //max new cards added each session
+            studySession.MaxExistingCards = 50; //max cards we previously learned to show this session so total session is maxnew + max existing
+            studySession.ReviewStrategy = new SuperMemo2ReviewStrategy(); //MAYBE MAKE THESE SETTINGS?????????
+
+            //init enumerator for itterating over study session
+            enumerator = studySession.GetEnumerator();
+
+            //show the first flashcard
+            ShowNextFlashcard();
+        }
+
+        #endregion
+
+        #region Save/Load
 
         private async void LoadFile()
         {
@@ -134,20 +152,7 @@ namespace JapaneseLearningApp
             File.WriteAllText(dataPath, json);
         }
 
-        private void StartStudySession()
-        {
-            //deserialize all words into the study session
-            studySession = new StudySession<Word>(allWords);
-            studySession.MaxNewCards = 10; //max new cards added each session
-            studySession.MaxExistingCards = 50; //max cards we previously learned to show this session so total session is maxnew + max existing
-            studySession.ReviewStrategy = new SuperMemo2ReviewStrategy(); //MAYBE MAKE THESE SETTINGS?????????
-
-            //init enumerator for itterating over study session
-            enumerator = studySession.GetEnumerator();
-
-            //show the first flashcard
-            ShowNextFlashcard();
-        }
+        
 
         #endregion
 
@@ -171,18 +176,24 @@ namespace JapaneseLearningApp
             string rating = (string)button.Tag;
 
             //set the review to whatever the user selected
+            Word updatedWord = new Word();
             switch (rating)
             {
                 case "Incorrect":
-                    studySession.Review(currentWord, ReviewOutcome.Incorrect);
+                    updatedWord = studySession.Review(currentWord, ReviewOutcome.Incorrect);
                     break;
                 case "Hesitant":
-                    studySession.Review(currentWord, ReviewOutcome.Hesitant);
+                    updatedWord = studySession.Review(currentWord, ReviewOutcome.Hesitant);
                     break;
                 case "Perfect":
-                    studySession.Review(currentWord, ReviewOutcome.Perfect);
+                    updatedWord = studySession.Review(currentWord, ReviewOutcome.Perfect);
                     break;
             }
+
+            currentWord.ReviewDate = updatedWord.ReviewDate;
+            currentWord.DifficultyRating = updatedWord.DifficultyRating;
+            currentWord.CorrectReviewStreak = updatedWord.CorrectReviewStreak;
+            currentWord.PreviousCorrectReview = updatedWord.PreviousCorrectReview;
 
             //continue reviewing
             ShowNextFlashcard();

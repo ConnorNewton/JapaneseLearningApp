@@ -150,7 +150,7 @@ namespace JapaneseLearningApp
 
         private async void LoadFile()
         {
-            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
+            string dataPath = Path.Combine(Path.GetDirectoryName(Application.UserAppDataPath), "user.json");
 
             if (File.Exists(dataPath))
             {
@@ -170,7 +170,7 @@ namespace JapaneseLearningApp
 
         private void SaveFile()
         {
-            string dataPath = Path.Combine(Application.UserAppDataPath, "user.json");
+            string dataPath = Path.Combine(Path.GetDirectoryName(Application.UserAppDataPath), "user.json");
             string json = JsonSerializer.Serialize(allWords, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(dataPath, json);
         }
@@ -219,6 +219,14 @@ namespace JapaneseLearningApp
                     break;
             }
 
+            // copy word contents because space repetition lib makes new words causing them to be null if not copied
+            updatedWord.romaji = currentWord.romaji;
+            updatedWord.furigana = currentWord.furigana;
+            updatedWord.meaning = currentWord.meaning;
+            updatedWord.word = currentWord.word;
+            updatedWord.level = currentWord.level;
+
+            //update the current word with the new calculated data
             currentWord.ReviewDate = updatedWord.ReviewDate;
             currentWord.DifficultyRating = updatedWord.DifficultyRating;
             currentWord.CorrectReviewStreak = updatedWord.CorrectReviewStreak;

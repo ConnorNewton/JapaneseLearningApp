@@ -33,14 +33,17 @@
             buttonIncorrect = new Button();
             buttonHesitant = new Button();
             labelWord = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // buttonPerfect
             // 
+            buttonPerfect.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             buttonPerfect.Enabled = false;
-            buttonPerfect.Location = new Point(260, 205);
+            buttonPerfect.Location = new Point(151, 3);
             buttonPerfect.Name = "buttonPerfect";
-            buttonPerfect.Size = new Size(94, 23);
+            buttonPerfect.Size = new Size(142, 36);
             buttonPerfect.TabIndex = 0;
             buttonPerfect.TabStop = false;
             buttonPerfect.Tag = "Perfect";
@@ -50,7 +53,8 @@
             // 
             // buttonSettings
             // 
-            buttonSettings.Location = new Point(383, 226);
+            buttonSettings.Anchor = AnchorStyles.Bottom;
+            buttonSettings.Location = new Point(193, 253);
             buttonSettings.Name = "buttonSettings";
             buttonSettings.Size = new Size(75, 23);
             buttonSettings.TabIndex = 0;
@@ -60,10 +64,11 @@
             // 
             // buttonIncorrect
             // 
+            buttonIncorrect.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             buttonIncorrect.Enabled = false;
-            buttonIncorrect.Location = new Point(79, 205);
+            buttonIncorrect.Location = new Point(3, 3);
             buttonIncorrect.Name = "buttonIncorrect";
-            buttonIncorrect.Size = new Size(75, 23);
+            buttonIncorrect.Size = new Size(142, 36);
             buttonIncorrect.TabIndex = 5;
             buttonIncorrect.TabStop = false;
             buttonIncorrect.Tag = "Incorrect";
@@ -73,10 +78,11 @@
             // 
             // buttonHesitant
             // 
+            buttonHesitant.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             buttonHesitant.Enabled = false;
-            buttonHesitant.Location = new Point(160, 205);
+            buttonHesitant.Location = new Point(299, 3);
             buttonHesitant.Name = "buttonHesitant";
-            buttonHesitant.Size = new Size(94, 23);
+            buttonHesitant.Size = new Size(144, 36);
             buttonHesitant.TabIndex = 6;
             buttonHesitant.TabStop = false;
             buttonHesitant.Tag = "Hesitant";
@@ -86,8 +92,9 @@
             // 
             // labelWord
             // 
+            labelWord.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             labelWord.BorderStyle = BorderStyle.FixedSingle;
-            labelWord.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelWord.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelWord.Location = new Point(12, 9);
             labelWord.Name = "labelWord";
             labelWord.Size = new Size(446, 193);
@@ -95,19 +102,37 @@
             labelWord.TextAlign = ContentAlignment.MiddleCenter;
             labelWord.Click += labelWord_Click;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.Controls.Add(buttonIncorrect, 0, 0);
+            tableLayoutPanel1.Controls.Add(buttonPerfect, 1, 0);
+            tableLayoutPanel1.Controls.Add(buttonHesitant, 2, 0);
+            tableLayoutPanel1.Location = new Point(12, 205);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(446, 42);
+            tableLayoutPanel1.TabIndex = 8;
+            // 
             // MainApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(466, 259);
+            ClientSize = new Size(466, 280);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(labelWord);
-            Controls.Add(buttonHesitant);
-            Controls.Add(buttonIncorrect);
             Controls.Add(buttonSettings);
-            Controls.Add(buttonPerfect);
+            MinimumSize = new Size(482, 319);
             Name = "MainApp";
             Text = "JLA";
             FormClosing += MainApp_FormClosing;
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -118,5 +143,6 @@
         private Button buttonIncorrect;
         private Button buttonHesitant;
         private Label labelWord;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

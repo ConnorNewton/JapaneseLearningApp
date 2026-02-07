@@ -303,18 +303,9 @@ namespace JapaneseLearningApp
         {
             if (settings.enableTTS)
             {
-                try
-                {
-                    //set voice to japanese (THIS WILL NOT REMAIN WHEN PEOPLE PRESS INSTALL NEED TO ENABLE SETTING)
-                    synth.SelectVoiceByHints(settings.genderTTS, VoiceAge.NotSet, 0, new CultureInfo("ja-JP"));
-                    synth.Volume = settings.volumeTTS;
-                }
-                catch
-                {
-                    //japanese is not installed so speak it in the language the user has on their computer
-                    synth.SelectVoiceByHints(settings.genderTTS, VoiceAge.NotSet, 0, CultureInfo.CurrentCulture);
-                    synth.Volume = settings.volumeTTS;
-                }
+                //set voice to japanese (THIS WILL NOT REMAIN WHEN PEOPLE PRESS INSTALL NEED TO ENABLE SETTING)
+                synth.SelectVoiceByHints(settings.genderTTS, VoiceAge.NotSet, 0, new CultureInfo("ja-JP"));
+                synth.Volume = settings.volumeTTS;
             }
 
         }

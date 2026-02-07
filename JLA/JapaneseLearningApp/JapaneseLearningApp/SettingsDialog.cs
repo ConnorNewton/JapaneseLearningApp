@@ -112,7 +112,7 @@ namespace JapaneseLearningApp
             settings.enableTTS = checkBoxEnableTTS.Checked;
 
             //stop showing if user selects do not show again
-            if (SettingsDialog.doNotShow && checkBoxEnableTTS.Checked)
+            if (!SettingsDialog.doNotShow && settings.enableTTS)
             {
                 TTSWarning tTSWarning = new TTSWarning();
 

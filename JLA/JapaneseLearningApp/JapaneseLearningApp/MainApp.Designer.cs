@@ -123,6 +123,7 @@
             // 
             // labelClick
             // 
+            labelClick.Anchor = AnchorStyles.Bottom;
             labelClick.AutoSize = true;
             labelClick.Enabled = false;
             labelClick.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -142,7 +143,7 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(labelWord);
             Controls.Add(buttonSettings);
-            MinimumSize = new Size(482, 280);
+            MinimumSize = new Size(482, 320);
             Name = "MainApp";
             Text = "JLA";
             FormClosing += MainApp_FormClosing;

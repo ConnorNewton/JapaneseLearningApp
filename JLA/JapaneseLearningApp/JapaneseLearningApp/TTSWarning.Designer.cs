@@ -86,6 +86,7 @@
             Controls.Add(buttonOK);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            MinimumSize = new Size(316, 216);
             Name = "TTSWarning";
             Text = "WARNING";
             ResumeLayout(false);

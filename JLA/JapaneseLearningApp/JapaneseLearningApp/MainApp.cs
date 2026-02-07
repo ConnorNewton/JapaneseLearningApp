@@ -70,7 +70,7 @@ namespace JapaneseLearningApp
 
         }
 
-        private void ShowNextFlashcard()
+        private async void ShowNextFlashcard()
         {
             //check if there are more cards to learn
             if (enumerator.MoveNext())
@@ -114,10 +114,13 @@ namespace JapaneseLearningApp
             buttonHesitant.Enabled = false;
             buttonPerfect.Enabled = false;
 
+            //ensure ui is fully shown
+            await Task.Yield();
+
             //TTS if enabled in settings
             if (settings.enableTTS)
             {
-                synth.Speak(currentWord.word);
+                synth.SpeakAsync(currentWord.word);
             }
 
         }
@@ -194,7 +197,6 @@ namespace JapaneseLearningApp
                 GetWordsFromAPI();
             }
 
-            
         }
 
         private void SaveFile()
@@ -220,6 +222,7 @@ namespace JapaneseLearningApp
         #endregion
 
         #region Events
+
 
         private void labelWord_Click(object sender, EventArgs e)
         {
@@ -302,6 +305,7 @@ namespace JapaneseLearningApp
         }
 
         #endregion
+
 
         
     }

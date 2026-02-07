@@ -43,7 +43,7 @@
             buttonPerfect.Size = new Size(94, 23);
             buttonPerfect.TabIndex = 0;
             buttonPerfect.Tag = "Perfect";
-            buttonPerfect.Text = "Perfect";
+            buttonPerfect.Text = "Remembered";
             buttonPerfect.UseVisualStyleBackColor = true;
             buttonPerfect.Click += buttonRating_Click;
             // 
@@ -75,7 +75,7 @@
             buttonIncorrect.Size = new Size(75, 23);
             buttonIncorrect.TabIndex = 5;
             buttonIncorrect.Tag = "Incorrect";
-            buttonIncorrect.Text = "Incorrect";
+            buttonIncorrect.Text = "Forgot";
             buttonIncorrect.UseVisualStyleBackColor = true;
             buttonIncorrect.Click += buttonRating_Click;
             // 

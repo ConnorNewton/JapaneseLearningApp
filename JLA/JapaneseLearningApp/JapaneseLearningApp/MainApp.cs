@@ -109,6 +109,9 @@ namespace JapaneseLearningApp
                 labelWord.Text += $"\n{currentWord.romaji}";
             }
 
+            //add instructions
+            labelClick.Visible = true;
+
             //disable so the user cannot rate until the answer is showm
             buttonIncorrect.Enabled = false;
             buttonHesitant.Enabled = false;
@@ -237,6 +240,9 @@ namespace JapaneseLearningApp
 
                 //stop user from interacting until rate button is pressed
                 allowFlashCardClick = false;
+
+                //hide hint
+                labelClick.Visible = false;
             }
         }
 

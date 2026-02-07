@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             buttonPerfect = new Button();
-            labelWord = new Label();
             buttonSettings = new Button();
             buttonIncorrect = new Button();
             buttonHesitant = new Button();
+            labelWord = new Label();
             SuspendLayout();
             // 
             // buttonPerfect
@@ -42,21 +42,11 @@
             buttonPerfect.Name = "buttonPerfect";
             buttonPerfect.Size = new Size(94, 23);
             buttonPerfect.TabIndex = 0;
+            buttonPerfect.TabStop = false;
             buttonPerfect.Tag = "Perfect";
             buttonPerfect.Text = "Remembered";
             buttonPerfect.UseVisualStyleBackColor = true;
             buttonPerfect.Click += buttonRating_Click;
-            // 
-            // labelWord
-            // 
-            labelWord.BorderStyle = BorderStyle.FixedSingle;
-            labelWord.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelWord.Location = new Point(16, 9);
-            labelWord.Name = "labelWord";
-            labelWord.Size = new Size(438, 184);
-            labelWord.TabIndex = 4;
-            labelWord.TextAlign = ContentAlignment.MiddleCenter;
-            labelWord.Click += labelWord_Click;
             // 
             // buttonSettings
             // 
@@ -64,6 +54,7 @@
             buttonSettings.Name = "buttonSettings";
             buttonSettings.Size = new Size(75, 23);
             buttonSettings.TabIndex = 0;
+            buttonSettings.TabStop = false;
             buttonSettings.Text = "Settings";
             buttonSettings.Click += buttonSettings_Click;
             // 
@@ -74,6 +65,7 @@
             buttonIncorrect.Name = "buttonIncorrect";
             buttonIncorrect.Size = new Size(75, 23);
             buttonIncorrect.TabIndex = 5;
+            buttonIncorrect.TabStop = false;
             buttonIncorrect.Tag = "Incorrect";
             buttonIncorrect.Text = "Forgot";
             buttonIncorrect.UseVisualStyleBackColor = true;
@@ -86,20 +78,32 @@
             buttonHesitant.Name = "buttonHesitant";
             buttonHesitant.Size = new Size(94, 23);
             buttonHesitant.TabIndex = 6;
+            buttonHesitant.TabStop = false;
             buttonHesitant.Tag = "Hesitant";
             buttonHesitant.Text = "Hesitant";
             buttonHesitant.UseVisualStyleBackColor = true;
             buttonHesitant.Click += buttonRating_Click;
+            // 
+            // labelWord
+            // 
+            labelWord.BorderStyle = BorderStyle.FixedSingle;
+            labelWord.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelWord.Location = new Point(12, 9);
+            labelWord.Name = "labelWord";
+            labelWord.Size = new Size(446, 193);
+            labelWord.TabIndex = 7;
+            labelWord.TextAlign = ContentAlignment.MiddleCenter;
+            labelWord.Click += labelWord_Click;
             // 
             // MainApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(466, 259);
+            Controls.Add(labelWord);
             Controls.Add(buttonHesitant);
             Controls.Add(buttonIncorrect);
             Controls.Add(buttonSettings);
-            Controls.Add(labelWord);
             Controls.Add(buttonPerfect);
             Name = "MainApp";
             Text = "JLA";
@@ -110,9 +114,9 @@
         #endregion
 
         private Button buttonPerfect;
-        private Label labelWord;
         private Button buttonSettings;
         private Button buttonIncorrect;
         private Button buttonHesitant;
+        private Label labelWord;
     }
 }

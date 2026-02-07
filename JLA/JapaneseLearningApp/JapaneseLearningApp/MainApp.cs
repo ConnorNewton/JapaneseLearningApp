@@ -223,7 +223,6 @@ namespace JapaneseLearningApp
 
         #region Events
 
-
         private void labelWord_Click(object sender, EventArgs e)
         {
             if (allowFlashCardClick)
@@ -311,11 +310,10 @@ namespace JapaneseLearningApp
                     synth.Volume = settings.volumeTTS;
                 }
             }
-            
+
         }
 
         #endregion
-
 
         
     }

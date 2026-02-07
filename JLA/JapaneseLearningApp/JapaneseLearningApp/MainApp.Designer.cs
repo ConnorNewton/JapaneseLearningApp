@@ -42,9 +42,9 @@
             // 
             buttonPerfect.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             buttonPerfect.Enabled = false;
-            buttonPerfect.Location = new Point(151, 3);
+            buttonPerfect.Location = new Point(299, 3);
             buttonPerfect.Name = "buttonPerfect";
-            buttonPerfect.Size = new Size(142, 36);
+            buttonPerfect.Size = new Size(144, 36);
             buttonPerfect.TabIndex = 0;
             buttonPerfect.TabStop = false;
             buttonPerfect.Tag = "Perfect";
@@ -81,9 +81,9 @@
             // 
             buttonHesitant.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             buttonHesitant.Enabled = false;
-            buttonHesitant.Location = new Point(299, 3);
+            buttonHesitant.Location = new Point(151, 3);
             buttonHesitant.Name = "buttonHesitant";
-            buttonHesitant.Size = new Size(144, 36);
+            buttonHesitant.Size = new Size(142, 36);
             buttonHesitant.TabIndex = 6;
             buttonHesitant.TabStop = false;
             buttonHesitant.Tag = "Hesitant";
@@ -111,8 +111,8 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.Controls.Add(buttonIncorrect, 0, 0);
-            tableLayoutPanel1.Controls.Add(buttonPerfect, 1, 0);
-            tableLayoutPanel1.Controls.Add(buttonHesitant, 2, 0);
+            tableLayoutPanel1.Controls.Add(buttonPerfect, 2, 0);
+            tableLayoutPanel1.Controls.Add(buttonHesitant, 1, 0);
             tableLayoutPanel1.Location = new Point(11, 205);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;

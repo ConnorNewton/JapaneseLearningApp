@@ -324,7 +324,7 @@ namespace JapaneseLearningApp
             string spokenText = e.Result.Text;
             float confidence = e.Result.Confidence;
 
-            if (confidence > 0.85f)
+            if (confidence > 0.88f)
             {
                 labelSpeak.Text = "Perfect!";
 
@@ -338,7 +338,6 @@ namespace JapaneseLearningApp
                     synth.SpeakAsync("さすが");
                 else
                     synth.SpeakAsync("お疲れ");
-
             }
             else
             {

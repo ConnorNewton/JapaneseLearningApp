@@ -340,11 +340,6 @@ namespace JapaneseLearningApp
                     synth.SpeakAsync("お疲れ");
 
             }
-            else if (confidence > 0.75f)
-            {
-                labelSpeak.Text = "Almost!";
-                synth.Speak(currentWord.romaji);
-            }
             else
             {
                 labelSpeak.Text = "Try again!";

@@ -18,6 +18,7 @@ using SpacedRepetition.Net.ReviewStrategies;
 using static System.Collections.Specialized.BitVector32;
 using System.Runtime.CompilerServices;
 using System.Drawing.Design;
+using System.Speech.Recognition;
 
 namespace JapaneseLearningApp
 {
@@ -35,6 +36,9 @@ namespace JapaneseLearningApp
 
         //Synthesizer
         private SpeechSynthesizer synth = new SpeechSynthesizer(); //voice synthesizer for pronunciation
+
+        //Speech Recognition
+        private SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine(new CultureInfo("ja-JP"));
 
         //Settings
         public Settings settings { get; private set; } //Settings object for storing user settings
@@ -126,6 +130,11 @@ namespace JapaneseLearningApp
                 synth.SpeakAsync(currentWord.word);
             }
 
+            //Load word if Speech is enabled
+            if(settings.enableVoiceRec)
+            {
+                LoadWordRecognition();
+            }
         }
         private void StartStudySession()
         {
@@ -159,6 +168,20 @@ namespace JapaneseLearningApp
             ShowNextFlashcard();
         }
 
+        private void LoadWordRecognition()
+        {
+            //reset recognizer
+            recognizer.UnloadAllGrammars();
+
+            //create the word to be recognized
+            GrammarBuilder gb = new GrammarBuilder(currentWord.word);
+            gb.Culture = new CultureInfo("ja-JP");
+
+            //load the grammar to the recognizer to begin recognizing
+            Grammar grammar = new Grammar(gb);
+            recognizer.LoadGrammar(grammar);
+        }
+
         #endregion
 
         #region Save/Load
@@ -177,11 +200,13 @@ namespace JapaneseLearningApp
             else
             {
                 //use default
-                settings = new Settings(false, VoiceGender.Male, 100, true, false, false, Settings.StudyIntensity.Standard);
+                settings = new Settings(false, VoiceGender.Male, 100, true, false, false, Settings.StudyIntensity.Standard, false); //CHANGE BOOLS TO ENUMS FOR BETTER READING
             }
 
             //initialize the tts if it is enabled from settings
             InitTTS();
+
+
 
             //load user data
             string dataPathUser = Path.Combine(Application.UserAppDataPath, "user.json");
@@ -199,6 +224,11 @@ namespace JapaneseLearningApp
                 // First time opening then wait to fetch from API then start
                 GetWordsFromAPI();
             }
+
+
+
+            //initialize the speech rec if enabled from settings (must be down here so word exists)
+            InitSpeech();
 
         }
 
@@ -285,6 +315,19 @@ namespace JapaneseLearningApp
             ShowNextFlashcard();
         }
 
+        private void Recognizer_SpeechRecognized(object? sender, SpeechRecognizedEventArgs e)
+        {
+            string spokenText = e.Result.Text;
+            float confidence = e.Result.Confidence;
+
+            if (confidence > 0.90f)
+                labelSpeak.Text = "Perfect!";
+            else if (confidence > 0.75f)
+                labelSpeak.Text = "Almost!";
+            else
+                labelSpeak.Text = "Try again!";
+        }
+
         #endregion
 
         #region Settings
@@ -296,6 +339,7 @@ namespace JapaneseLearningApp
             if (settingsDialog.ShowDialog() == DialogResult.OK)
             {
                 InitTTS();
+                InitSpeech();
             }
         }
 
@@ -310,8 +354,32 @@ namespace JapaneseLearningApp
 
         }
 
+        private void InitSpeech()
+        {
+            if(settings.enableVoiceRec)
+            {
+                //Make the default mic the one set on the users computer
+                recognizer.SetInputToDefaultAudioDevice();
+
+                labelSpeak.Visible = true;
+
+                //init the event
+                recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
+
+                //load the current word
+                LoadWordRecognition();
+
+                //make the recognizer listen continuously
+                recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            else
+            {
+                labelSpeak.Visible = false;
+            }
+        }
+
         #endregion
 
-        
+
     }
 }

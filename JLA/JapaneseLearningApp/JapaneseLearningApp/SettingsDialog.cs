@@ -35,6 +35,7 @@ namespace JapaneseLearningApp
             checkBoxShowFuri.Checked = settings.showFurigana;
             checkBoxShowRomaji.Checked = settings.showRomaji;
             checkBoxShowJap.Checked = settings.showJapaneseWord;
+            checkBoxEnableVRec.Checked = settings.enableVoiceRec;
 
             if (settings.studyIntensity == Settings.StudyIntensity.Light)
                 comboBoxIntensity.SelectedIndex = 0;
@@ -47,10 +48,11 @@ namespace JapaneseLearningApp
         #region Open/Close Buttons
         private void buttonDone_Click(object sender, EventArgs e)
         {
-            //OTHER SETTINGS CAN GO HERE TTS IN EVENTS FOR THE SAKE OF TEST BUTTON
+            //Set the settings based on user controls
             settings.showFurigana = checkBoxShowFuri.Checked;
             settings.showJapaneseWord = checkBoxShowJap.Checked;
             settings.showRomaji = checkBoxShowRomaji.Checked;
+            settings.enableVoiceRec = checkBoxEnableVRec.Checked;
 
             if (comboBoxIntensity.SelectedIndex == 0)
                 settings.studyIntensity = Settings.StudyIntensity.Light;

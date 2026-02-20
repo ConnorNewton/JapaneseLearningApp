@@ -23,8 +23,9 @@ namespace JapaneseLearningApp
         public bool showFurigana { get; set; }
         public bool showRomaji { get; set; }
         public StudyIntensity studyIntensity { get; set; }
+        public bool enableVoiceRec { get; set; }
 
-        public Settings(bool enableTTS, VoiceGender genderTTs, int volumeTTS, bool showRomaji, bool showJapaneseWord, bool showFurigana, StudyIntensity studyIntensity) 
+        public Settings(bool enableTTS, VoiceGender genderTTs, int volumeTTS, bool showRomaji, bool showJapaneseWord, bool showFurigana, StudyIntensity studyIntensity, bool enableVoiceRec) 
         {
             this.enableTTS = enableTTS;
             this.volumeTTS = volumeTTS;
@@ -33,6 +34,7 @@ namespace JapaneseLearningApp
             this.showJapaneseWord = showJapaneseWord;
             this.showRomaji = showRomaji;
             this.studyIntensity = studyIntensity;
+            this.enableVoiceRec = enableVoiceRec;
         }
     }
 }

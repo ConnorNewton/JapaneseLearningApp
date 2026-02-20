@@ -41,6 +41,7 @@
             checkBoxShowRomaji = new CheckBox();
             comboBoxIntensity = new ComboBox();
             label2 = new Label();
+            checkBoxEnableVRec = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)trackBarVol).BeginInit();
             SuspendLayout();
             // 
@@ -107,7 +108,7 @@
             // 
             // buttonTest
             // 
-            buttonTest.Location = new Point(239, 29);
+            buttonTest.Location = new Point(239, 36);
             buttonTest.Name = "buttonTest";
             buttonTest.Size = new Size(75, 23);
             buttonTest.TabIndex = 7;
@@ -173,12 +174,23 @@
             label2.TabIndex = 13;
             label2.Text = "Study Intensity";
             // 
+            // checkBoxEnableVRec
+            // 
+            checkBoxEnableVRec.AutoSize = true;
+            checkBoxEnableVRec.Location = new Point(193, 152);
+            checkBoxEnableVRec.Name = "checkBoxEnableVRec";
+            checkBoxEnableVRec.Size = new Size(102, 19);
+            checkBoxEnableVRec.TabIndex = 14;
+            checkBoxEnableVRec.Text = "Enable Speech";
+            checkBoxEnableVRec.UseVisualStyleBackColor = true;
+            // 
             // SettingsDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(336, 237);
             ControlBox = false;
+            Controls.Add(checkBoxEnableVRec);
             Controls.Add(label2);
             Controls.Add(comboBoxIntensity);
             Controls.Add(checkBoxShowRomaji);
@@ -215,5 +227,6 @@
         private CheckBox checkBoxShowRomaji;
         private ComboBox comboBoxIntensity;
         private Label label2;
+        private CheckBox checkBoxEnableVRec;
     }
 }

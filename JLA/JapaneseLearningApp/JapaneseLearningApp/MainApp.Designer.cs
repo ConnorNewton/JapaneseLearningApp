@@ -35,6 +35,7 @@
             labelWord = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             labelClick = new Label();
+            labelSpeak = new Label();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -127,18 +128,32 @@
             labelClick.AutoSize = true;
             labelClick.Enabled = false;
             labelClick.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelClick.Location = new Point(159, 134);
+            labelClick.Location = new Point(160, 131);
             labelClick.Name = "labelClick";
             labelClick.Size = new Size(151, 13);
             labelClick.TabIndex = 9;
             labelClick.Text = "CLICK TO REVEAL ANSWER";
             labelClick.Visible = false;
             // 
+            // labelSpeak
+            // 
+            labelSpeak.Anchor = AnchorStyles.Bottom;
+            labelSpeak.AutoSize = true;
+            labelSpeak.Enabled = false;
+            labelSpeak.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelSpeak.Location = new Point(152, 164);
+            labelSpeak.Name = "labelSpeak";
+            labelSpeak.Size = new Size(167, 20);
+            labelSpeak.TabIndex = 10;
+            labelSpeak.Text = "Try speaking the word!";
+            labelSpeak.Visible = false;
+            // 
             // MainApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(466, 281);
+            Controls.Add(labelSpeak);
             Controls.Add(labelClick);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(labelWord);
@@ -161,5 +176,6 @@
         private Label labelWord;
         private TableLayoutPanel tableLayoutPanel1;
         private Label labelClick;
+        private Label labelSpeak;
     }
 }

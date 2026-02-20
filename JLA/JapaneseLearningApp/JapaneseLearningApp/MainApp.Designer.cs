@@ -133,6 +133,7 @@
             labelClick.Size = new Size(151, 13);
             labelClick.TabIndex = 9;
             labelClick.Text = "CLICK TO REVEAL ANSWER";
+            labelClick.TextAlign = ContentAlignment.MiddleCenter;
             labelClick.Visible = false;
             // 
             // labelSpeak
@@ -146,6 +147,7 @@
             labelSpeak.Size = new Size(167, 20);
             labelSpeak.TabIndex = 10;
             labelSpeak.Text = "Try speaking the word!";
+            labelSpeak.TextAlign = ContentAlignment.MiddleCenter;
             labelSpeak.Visible = false;
             // 
             // MainApp

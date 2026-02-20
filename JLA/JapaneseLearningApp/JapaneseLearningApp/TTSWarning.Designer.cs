@@ -46,11 +46,11 @@
             // 
             // buttonOK
             // 
-            buttonOK.Location = new Point(50, 118);
+            buttonOK.Location = new Point(28, 118);
             buttonOK.Name = "buttonOK";
-            buttonOK.Size = new Size(75, 23);
+            buttonOK.Size = new Size(133, 23);
             buttonOK.TabIndex = 1;
-            buttonOK.Text = "OK";
+            buttonOK.Text = "Take me to Install";
             buttonOK.UseVisualStyleBackColor = true;
             buttonOK.Click += button1_Click;
             // 
@@ -58,9 +58,9 @@
             // 
             buttonCancel.Location = new Point(167, 118);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(75, 23);
+            buttonCancel.Size = new Size(121, 23);
             buttonCancel.TabIndex = 2;
-            buttonCancel.Text = "Cancel";
+            buttonCancel.Text = "I understand";
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += button2_Click;
             // 
@@ -79,7 +79,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(300, 177);
+            ClientSize = new Size(310, 210);
             ControlBox = false;
             Controls.Add(checkBoxDoNotShow);
             Controls.Add(buttonCancel);

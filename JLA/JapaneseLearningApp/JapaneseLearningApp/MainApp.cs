@@ -39,6 +39,7 @@ namespace JapaneseLearningApp
 
         //Speech Recognition
         private SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine(new CultureInfo("ja-JP"));
+        private Random rand = new Random();
 
         //Settings
         public Settings settings { get; private set; } //Settings object for storing user settings
@@ -180,6 +181,9 @@ namespace JapaneseLearningApp
             //load the grammar to the recognizer to begin recognizing
             Grammar grammar = new Grammar(gb);
             recognizer.LoadGrammar(grammar);
+
+            //reset the label
+            labelSpeak.Text = "Try speaking the word";
         }
 
         #endregion
@@ -320,12 +324,33 @@ namespace JapaneseLearningApp
             string spokenText = e.Result.Text;
             float confidence = e.Result.Confidence;
 
-            if (confidence > 0.90f)
+            if (confidence > 0.85f)
+            {
                 labelSpeak.Text = "Perfect!";
+
+                //congratulations message randomized
+                int randVal = rand.Next(1, 5);
+                if (randVal == 1)
+                    synth.SpeakAsync("いいね");
+                else if (randVal == 2)
+                    synth.SpeakAsync("ナイス");
+                else if (randVal == 3)
+                    synth.SpeakAsync("さすが");
+                else
+                    synth.SpeakAsync("お疲れ");
+
+            }
             else if (confidence > 0.75f)
+            {
                 labelSpeak.Text = "Almost!";
+                synth.Speak(currentWord.romaji);
+            }
             else
+            {
                 labelSpeak.Text = "Try again!";
+                synth.Speak(currentWord.romaji);
+            }
+                
         }
 
         #endregion

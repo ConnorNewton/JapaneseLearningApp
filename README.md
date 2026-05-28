@@ -1,4 +1,4 @@
-##Japanese Learning App
+## Japanese Learning App
 
 A simple app to learn japanese vocabulary using spaced repitition using flashcards
 

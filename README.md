@@ -3,18 +3,18 @@
 A simple app to learn japanese vocabulary using spaced repitition using flashcards
 
 ##Features
--TTS to hear word pronunciation
--Voice Recognition to practice pronunciation
--Settings to alter study time/speed
--Customization of flashcards
+- TTS to hear word pronunciation
+- Voice Recognition to practice pronunciation
+- Settings to alter study time/speed
+- Customization of flashcards
 
-## Technologies
--C#
--Windows Speech Recognition and TTS
--JLPT Vocabulary API
--Microsoft Forms App
--SpacedRepetition.Net (SuperMemo2)
--JSON
+##Technologies
+- C#/.NET
+- Windows Speech Recognition and TTS
+- JLPT Vocabulary API
+- Microsoft Forms App
+- SpacedRepetition.Net (SuperMemo2)
+- JSON
 
 ##Installation
 1. Download the latest release from the Releases page
@@ -30,8 +30,8 @@ A simple app to learn japanese vocabulary using spaced repitition using flashcar
 6. Come back tomorrow and study again
 
 ##Future Improvements
--In app tutorial
--Clean and colorful UI
--More customization options
--Japanese alphabet chart
--Japanese dictionary
+- In app tutorial
+- Clean and colorful UI
+- More customization options
+- Japanese alphabet chart
+- Japanese dictionary
